@@ -29,15 +29,15 @@ import com.example.inventory.ui.item.ItemEditViewModel
 import com.example.inventory.ui.item.ItemEntryViewModel
 
 /**
- * Provides Factory to create instance of ViewModel for the entire Inventory app
+ * File ini digunakan untuk menyediakan factory untuk membuat
+ * instansi dari ViewModel yang dibutuhkan oleh aplikasi.
  */
 object AppViewModelProvider {
     val Factory = viewModelFactory {
         // Initializer for ItemEditViewModel
         initializer {
             ItemEditViewModel(
-                this.createSavedStateHandle(),
-                inventoryApplication().container.itemsRepository
+                this.createSavedStateHandle()
             )
         }
         // Initializer for ItemEntryViewModel
@@ -48,21 +48,22 @@ object AppViewModelProvider {
         // Initializer for ItemDetailsViewModel
         initializer {
             ItemDetailsViewModel(
-                this.createSavedStateHandle(),
-                inventoryApplication().container.itemsRepository
+                this.createSavedStateHandle()
             )
         }
 
         // Initializer for HomeViewModel
         initializer {
-            HomeViewModel(inventoryApplication().container.itemsRepository)
+            HomeViewModel()
         }
     }
 }
 
 /**
- * Extension function to queries for [Application] object and returns an instance of
- * [InventoryApplication].
+ * Fungsi ini digunakan untuk memperoleh instansi
+ * InventoryApplication dari CreationExtras yang nanti
+ * di cast menjadi InventoryApplication. Ini memungkinkan
+ * ViewModel untuk mengakses InventoryApplication dengan mudah
  */
 fun CreationExtras.inventoryApplication(): InventoryApplication =
     (this[AndroidViewModelFactory.APPLICATION_KEY] as InventoryApplication)
